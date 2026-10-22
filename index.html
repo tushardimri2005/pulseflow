@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#070a12" />
-  <title>PulseFlow Nexus — Stateless Orchestrator</title>
+  <meta name="theme-color" content="#0b1310" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>PulseFlow Nexus — Heritage Reserve</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Luxury Serif + Clean Sans + Precision Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <script>
     tailwind.config = {
@@ -16,154 +19,287 @@
       theme: {
         extend: {
           fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: { 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5' },
-            surface: { bg: '#070a12', card: '#0f1624', border: '#1e293b', input: '#162033' }
+            brand: {
+              300: '#e5c98b',
+              400: '#d4af37', // Classic Gold
+              500: '#c5a059', // Burnished Brass
+              600: '#a6823c', // Deep Antique Gold
+            },
+            surface: {
+              bg: '#0b1310',     // Deep British Racing Green / Obsidian
+              card: '#121d18',   // Dark Club Leather Green
+              border: '#24352c', // Subtle Brass-Tinted Pine Border
+              input: '#0e1713'   // Deep Recessed Felt
+            },
+            ivory: {
+              100: '#f5f0e6',    // Crisp Cream / Parchment
+              300: '#d5cbb8',    // Warm Linen
+              400: '#9e9689'     // Muted Taupe
+            }
           }
         }
       }
     }
   </script>
   <style>
-    body { background-color: #070a12; color: #f8fafc; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: #0b1310;
+      color: #f5f0e6;
+      -webkit-tap-highlight-color: transparent;
+      background-image: radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.07) 0%, transparent 65%);
+    }
     .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); }
     .pt-safe { padding-top: env(safe-area-inset-top, 16px); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
+    .gold-shimmer {
+      background: linear-gradient(135deg, #d4af37 0%, #c5a059 50%, #9b7832 100%);
+    }
   </style>
 </head>
 <body class="font-sans antialiased h-screen overflow-hidden flex flex-col justify-between">
 
-  <!-- ================= ADMIN GATE OVERLAY ================= -->
+  <!-- ================= PRIVATE VAULT GATE (OLD MONEY EDITION) ================= -->
   <div id="adminGate" class="fixed inset-0 bg-surface-bg z-50 flex flex-col items-center justify-center p-6 text-center">
-    <div class="w-16 h-16 rounded-2xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center mb-5 shadow-2xl shadow-brand-500/20">
-      <i data-lucide="network" class="w-8 h-8 text-brand-400"></i>
+    <div class="w-16 h-16 rounded-full bg-surface-card border border-brand-500/40 flex items-center justify-center mb-5 shadow-2xl shadow-black">
+      <i data-lucide="key-round" class="w-7 h-7 text-brand-400"></i>
     </div>
-    <span class="text-[10px] font-mono uppercase tracking-widest text-brand-400 bg-brand-500/10 px-2.5 py-1 rounded-full mb-2">Zero-DB Orchestrator</span>
-    <h1 class="text-xl font-extrabold text-white">PulseFlow Nexus</h1>
-    <p class="text-xs text-slate-400 mt-1 mb-6 max-w-xs">Stateless Command Bridge. Stores nothing; controls everything.</p>
+    <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-brand-400 border border-brand-500/30 bg-brand-500/10 px-3 py-1 rounded-full mb-3">
+      Private Reserve • Est. MMXXVI
+    </span>
+    <h1 class="font-serif text-3xl font-bold text-ivory-100 tracking-wide">PulseFlow Nexus</h1>
+    <p class="text-xs text-ivory-400 mt-1.5 mb-7 max-w-xs leading-relaxed">
+      Executive Stateless Concierge. Connects your private portals, intelligence, and dispatches with zero footprint.
+    </p>
 
     <div class="w-full max-w-xs space-y-3">
-      <input type="password" id="pinInput" placeholder="Admin PIN" maxlength="8"
-        class="w-full bg-surface-card border border-surface-border text-center text-lg tracking-widest text-white py-3 rounded-xl focus:outline-none focus:border-brand-500 font-mono" />
-      <button onclick="unlockAdmin()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-semibold py-3 rounded-xl active:scale-95 transition-all shadow-lg shadow-brand-500/25">
-        Initialize Bridge
+      <input type="password" id="pinInput" placeholder="••••" maxlength="8"
+        class="w-full bg-surface-card border border-surface-border text-center text-xl tracking-[0.4em] text-brand-300 py-3 rounded-xl focus:outline-none focus:border-brand-500 font-mono placeholder-ivory-400/30" />
+      <button onclick="unlockAdmin()" class="w-full gold-shimmer text-[#0b1310] font-bold py-3 rounded-xl active:scale-95 transition-all shadow-lg shadow-brand-500/15 tracking-wide text-xs uppercase">
+        Enter Private Study
       </button>
-      <button onclick="quickUnlock()" class="text-[11px] text-slate-400 hover:text-brand-400 underline block mx-auto pt-1">
-        Tap to auto-fill Admin PIN (1234)
+      <button onclick="quickUnlock()" class="text-[11px] text-ivory-400 hover:text-brand-300 underline block mx-auto pt-2">
+        Use Master Signet PIN (1234)
       </button>
-      <p id="pinError" class="text-rose-400 text-xs hidden">Access Denied: Invalid Master PIN</p>
+      <p id="pinError" class="text-red-400 text-xs hidden font-serif italic">Credentials declined. Please verify your Master PIN.</p>
     </div>
   </div>
 
-  <!-- ================= TOP HEADER ================= -->
-  <header class="px-4 pt-safe pt-3 pb-3 border-b border-surface-border bg-surface-bg/90 backdrop-blur-md flex items-center justify-between z-20">
-    <div class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-md shadow-brand-500/20">
-        <i data-lucide="cpu" class="w-4 h-4 text-white"></i>
-      </div>
-      <div>
-        <div class="flex items-center gap-1.5">
-          <h2 class="font-bold text-sm text-white tracking-tight">NEXUS</h2>
-          <span class="text-[9px] font-mono bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded uppercase">Stateless</span>
+  <!-- ================= TOP HEADER & BESPOKE TICKER ================= -->
+  <header class="pt-safe bg-surface-bg/95 border-b border-surface-border backdrop-blur-md z-20">
+    <div class="px-4 pt-3 pb-2.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-surface-card border border-brand-500/40 flex items-center justify-center shadow-inner">
+          <span class="font-serif font-bold text-base text-brand-400 tracking-tighter">PF</span>
         </div>
-        <p class="text-[10px] text-slate-400 font-mono" id="activeBridgeLabel">0 Bytes Stored • Live Proxy Active</p>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="font-serif font-bold text-lg text-ivory-100 tracking-wide leading-none">NEXUS</h2>
+            <span class="text-[9px] font-mono bg-brand-500/15 text-brand-300 border border-brand-500/30 px-1.5 py-0.5 rounded uppercase tracking-widest">Reserve</span>
+          </div>
+          <p class="text-[10px] text-ivory-400 font-mono mt-0.5" id="activeBridgeLabel">Zero-Ledger Concierge Active</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5">
+        <button onclick="openSettingsModal()" class="p-2 rounded-xl bg-surface-card border border-surface-border text-ivory-300 hover:text-brand-300 transition-colors" title="Configure Direct Speed Dial">
+          <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+        </button>
+        <button onclick="generatePortableLink()" class="text-xs bg-surface-card hover:bg-surface-input text-brand-300 border border-brand-500/30 px-3 py-1.5 rounded-xl flex items-center gap-1.5 active:scale-95 transition-all">
+          <i data-lucide="bookmark" class="w-3.5 h-3.5 text-brand-400"></i>
+          <span class="text-[11px] font-semibold tracking-wide">Seal Link</span>
+        </button>
+        <button onclick="lockAdmin()" class="p-2 rounded-xl bg-surface-card border border-surface-border text-ivory-400 hover:text-red-400 transition-colors" title="Lock Study">
+          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+        </button>
       </div>
     </div>
-    <div class="flex items-center gap-1.5">
-      <button onclick="generatePortableLink()" title="Encode State to Link" class="text-xs bg-surface-card hover:bg-surface-input text-brand-400 border border-surface-border px-2.5 py-1.5 rounded-xl flex items-center gap-1 active:scale-95 transition-all">
-        <i data-lucide="link-2" class="w-3.5 h-3.5"></i>
-        <span class="text-[11px] font-semibold">Sync URL</span>
-      </button>
-      <button onclick="lockAdmin()" class="p-2 rounded-xl bg-surface-card border border-surface-border text-slate-400 hover:text-white">
-        <i data-lucide="shield-off" class="w-4 h-4"></i>
-      </button>
+
+    <!-- LIVE BESPOKE TELEMETRY BAR -->
+    <div class="px-4 py-1.5 bg-surface-card/90 border-t border-surface-border flex items-center justify-between text-[10px] font-mono text-ivory-300 overflow-x-auto no-scrollbar gap-5 whitespace-nowrap">
+      <span id="tickerCrypto" class="text-brand-300">✦ Loading Exchange...</span>
+      <span id="tickerWeather" class="text-ivory-300">✦ Climate Telemetry...</span>
+      <span id="tickerIp" class="text-ivory-400">✦ Node Registry...</span>
     </div>
   </header>
 
-  <!-- ================= MAIN VIEWPORT ================= -->
-  <main class="flex-1 overflow-y-auto no-scrollbar p-4 max-w-xl mx-auto w-full pb-28 space-y-4">
+  <!-- ================= MAIN SCROLLABLE STUDY ================= -->
+  <main class="flex-1 overflow-y-auto no-scrollbar p-3.5 max-w-xl mx-auto w-full pb-28 space-y-3.5">
 
-    <!-- VIEW 1: THE PORTAL HUB (MIDDLEMAN FRAME) -->
-    <section id="view-portal" class="space-y-4">
-      <!-- Live URL / Service Injector -->
-      <div class="bg-surface-card border border-surface-border p-3 rounded-2xl space-y-2.5">
+    <!-- ================= TAB 1: PORTAL & X-RAY HUB ================= -->
+    <section id="view-portal" class="space-y-3">
+      <div class="bg-surface-card border border-surface-border p-3.5 rounded-2xl space-y-2.5 shadow-lg shadow-black/30">
         <div class="flex items-center justify-between">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-            <i data-lucide="layers" class="w-3.5 h-3.5 text-brand-400"></i> Universal Portal Frame
+          <span class="font-serif text-sm font-bold tracking-wide text-ivory-100 flex items-center gap-1.5">
+            <i data-lucide="compass" class="w-4 h-4 text-brand-400"></i> Grand Portal & Reader Lens
           </span>
-          <span class="text-[10px] font-mono text-slate-500">Runs inside Nexus</span>
+          <button onclick="openAddBridgeModal()" class="text-[10px] bg-brand-500/15 text-brand-300 border border-brand-500/30 px-2.5 py-0.5 rounded-lg font-semibold hover:bg-brand-500/25 transition-colors">
+            + Pin Estate
+          </button>
         </div>
-        <form onsubmit="loadIntoPortal(event)" class="flex gap-2">
-          <input type="text" id="portalUrlInput" placeholder="Enter any URL or tool (e.g. wikipedia.org)..."
-            class="flex-1 bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 font-mono" />
-          <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-semibold px-3.5 py-2 rounded-xl active:scale-95 transition-all shrink-0">
+
+        <form onsubmit="handlePortalSubmit(event)" class="flex gap-1.5">
+          <input type="text" id="portalUrlInput" placeholder="Enter domain, journal, or YouTube address..."
+            class="flex-1 bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-xs text-ivory-100 placeholder-ivory-400/50 focus:outline-none focus:border-brand-500 font-mono" />
+          <button type="submit" class="gold-shimmer text-[#0b1310] text-xs font-bold px-3.5 py-2 rounded-xl active:scale-95 transition-all shrink-0">
             Mount
           </button>
+          <button type="button" onclick="triggerXRayCurrent()" title="Bypass Blocks & Strip Clutter"
+            class="bg-surface-input hover:bg-brand-500/15 border border-brand-500/40 text-brand-300 text-xs font-semibold px-2.5 py-2 rounded-xl active:scale-95 transition-all shrink-0 flex items-center gap-1">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i> Reader
+          </button>
         </form>
-        <!-- Preset Quick Bridges -->
-        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-1" id="bridgePills"></div>
+
+        <!-- Shortcut Bridge Pills -->
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-0.5" id="bridgePills"></div>
       </div>
 
-      <!-- The "Main Man" Embedded Viewport -->
-      <div class="bg-surface-card border border-surface-border rounded-2xl overflow-hidden flex flex-col h-[56vh] relative">
-        <div class="bg-surface-input px-3 py-2 border-b border-surface-border flex items-center justify-between text-xs">
+      <!-- Embedded Viewport Frame OR Parchment X-Ray Reader View -->
+      <div class="bg-surface-card border border-surface-border rounded-2xl overflow-hidden flex flex-col h-[54vh] relative shadow-xl shadow-black/40">
+        <div class="bg-surface-input px-3.5 py-2 border-b border-surface-border flex items-center justify-between text-xs">
           <div class="flex items-center gap-2 truncate">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="portalTitle" class="font-mono text-[11px] text-slate-300 truncate">nexus://internal-deck</span>
+            <span class="w-2 h-2 rounded-full bg-brand-400"></span>
+            <span id="portalTitle" class="font-mono text-[11px] text-ivory-300 truncate">reserve://encyclopedia</span>
           </div>
-          <div class="flex items-center gap-2 shrink-0">
-            <button onclick="openAddBridgeModal()" class="text-[10px] bg-brand-500/20 text-brand-400 px-2 py-0.5 rounded hover:bg-brand-500/30">+ Pin Bridge</button>
-            <a id="portalExternalFallback" href="https://en.m.wikipedia.org" target="_blank" class="text-slate-400 hover:text-white" title="Open Direct">
+          <div class="flex items-center gap-2.5 shrink-0">
+            <button onclick="speakXRayContent()" id="btnReadAloud" class="hidden text-[10px] bg-brand-500/20 text-brand-300 border border-brand-500/30 px-2 py-0.5 rounded flex items-center gap-1">
+              <i data-lucide="volume-2" class="w-3 h-3"></i> Narrate
+            </button>
+            <a id="portalExternalFallback" href="https://en.m.wikipedia.org" target="_blank" class="text-ivory-400 hover:text-brand-300" title="Open Direct">
               <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
             </a>
           </div>
         </div>
-        <iframe id="portalFrame" src="https://en.m.wikipedia.org/wiki/Proxy_pattern" class="w-full flex-1 bg-white"></iframe>
+
+        <!-- Standard Iframe Viewport -->
+        <iframe id="portalFrame" src="https://en.m.wikipedia.org/wiki/Old_money" allow="autoplay; encrypted-media; fullscreen" class="w-full flex-1 bg-[#f5f0e6]"></iframe>
+
+        <!-- Unblockable X-Ray Reader Container (Warm Ivory on Deep Pine) -->
+        <div id="xrayContainer" class="hidden w-full flex-1 bg-surface-bg p-5 overflow-y-auto font-serif text-sm text-ivory-100 leading-relaxed whitespace-pre-wrap select-text"></div>
       </div>
     </section>
 
-    <!-- VIEW 2: LIVE GITHUB & API BRIDGE (ZERO STORAGE) -->
-    <section id="view-github" class="hidden space-y-4">
-      <div class="bg-surface-card border border-surface-border p-3.5 rounded-2xl space-y-2.5">
+    <!-- ================= TAB 2: PRIVATE COUNSEL (KEYLESS AI) ================= -->
+    <section id="view-ai" class="hidden space-y-3.5">
+      <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-3 shadow-lg shadow-black/30">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-white flex items-center gap-1.5">
-            <i data-lucide="git-branch" class="w-4 h-4 text-brand-400"></i> Live GitHub Bridge
+          <span class="font-serif text-base font-bold text-ivory-100 flex items-center gap-1.5">
+            <i data-lucide="feather" class="w-4 h-4 text-brand-400"></i> Private Intelligence Counsel
           </span>
-          <span class="text-[10px] font-mono text-emerald-400">Direct API Pull</span>
+          <span class="text-[10px] font-mono text-brand-300">Discreet • Keyless</span>
         </div>
-        <p class="text-[11px] text-slate-400">Pulls live repositories, stars, and deployment links straight from GitHub without storing a single byte.</p>
-        <form onsubmit="fetchGitHubBridge(event)" class="flex gap-2">
-          <input type="text" id="ghUsername" placeholder="GitHub username (e.g., vercel)..." value="vercel"
-            class="flex-1 bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-brand-500" />
-          <button type="submit" class="bg-brand-500 text-white text-xs font-semibold px-4 py-2 rounded-xl active:scale-95 transition-all">
-            Bridge
+
+        <textarea id="aiPrompt" rows="3" placeholder="Inquire on any subject, draft correspondence, analyze code, or commission a bespoke illustration..."
+          class="w-full bg-surface-input border border-surface-border rounded-xl p-3 text-xs text-ivory-100 placeholder-ivory-400/50 focus:outline-none focus:border-brand-500 resize-none"></textarea>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <button onclick="runAiText()" class="gold-shimmer text-[#0b1310] py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 active:scale-95 transition-all">
+            <i data-lucide="scroll-text" class="w-4 h-4"></i> Consult Counsel
           </button>
+          <button onclick="runAiImage()" class="bg-surface-input hover:bg-brand-500/15 border border-brand-500/40 text-brand-300 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 active:scale-95 transition-all">
+            <i data-lucide="frame" class="w-4 h-4"></i> Commission Art
+          </button>
+        </div>
+      </div>
+
+      <!-- AI Output Box -->
+      <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-2.5 shadow-lg shadow-black/30">
+        <div class="flex items-center justify-between border-b border-surface-border pb-2">
+          <span class="font-serif text-xs italic text-brand-300">Counsel Response Ledger</span>
+          <div class="flex gap-2">
+            <button onclick="speakText(document.getElementById('aiTextOutput').innerText)" class="text-[10px] bg-surface-input border border-surface-border px-2.5 py-1 rounded-lg text-ivory-300 hover:text-brand-300">🔊 Narrate</button>
+            <button onclick="copyAiOutput()" class="text-[10px] bg-surface-input border border-surface-border px-2.5 py-1 rounded-lg text-brand-300">Copy</button>
+          </div>
+        </div>
+        <div id="aiTextOutput" class="text-xs text-ivory-100 font-sans leading-relaxed whitespace-pre-wrap max-h-60 overflow-y-auto select-text">Standing by at your service. Enter an inquiry above.</div>
+        <div id="aiImageOutput" class="hidden pt-2 flex flex-col items-center">
+          <img id="aiGeneratedImg" src="" class="rounded-xl border-2 border-brand-500/40 max-h-64 object-cover shadow-xl" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: TELEGRAPH DISPATCH & QR SEAL ================= -->
+    <section id="view-relay" class="hidden space-y-3.5">
+      <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-3 shadow-lg shadow-black/30">
+        <div class="flex items-center justify-between">
+          <span class="font-serif text-base font-bold text-ivory-100 flex items-center gap-1.5">
+            <i data-lucide="send" class="w-4 h-4 text-brand-400"></i> Executive Dispatch Relay
+          </span>
+          <div class="flex items-center gap-1.5">
+            <button onclick="startVoiceInput()" id="btnMic" class="bg-surface-input border border-brand-500/30 text-brand-300 px-2.5 py-1 rounded-lg text-[11px] font-semibold flex items-center gap-1 active:scale-95">
+              <i data-lucide="mic" class="w-3.5 h-3.5"></i> Dictate
+            </button>
+            <button onclick="toggleQrBeam()" class="bg-surface-input border border-brand-500/30 text-ivory-300 px-2.5 py-1 rounded-lg text-[11px] font-semibold flex items-center gap-1 active:scale-95">
+              <i data-lucide="qr-code" class="w-3.5 h-3.5 text-brand-400"></i> QR Seal
+            </button>
+          </div>
+        </div>
+
+        <textarea id="relayPayload" rows="3" placeholder="Dictate or compose memorandum once → dispatch via WhatsApp, Telegram, Courier Mail, or Webhook..."
+          class="w-full bg-surface-input border border-surface-border rounded-xl p-3 text-xs text-ivory-100 placeholder-ivory-400/50 font-mono focus:outline-none focus:border-brand-500 resize-none"></textarea>
+
+        <!-- Instant QR Code Seal -->
+        <div id="qrBeamBox" class="hidden bg-[#f5f0e6] p-4 rounded-xl border-2 border-brand-500 flex flex-col items-center justify-center space-y-2">
+          <img id="qrImage" src="" alt="QR Seal" class="w-44 h-44" />
+          <p class="font-serif text-xs text-[#0b1310] font-bold">Scan Seal with Camera to Receive Memorandum</p>
+        </div>
+
+        <!-- 4 Instant Dispatch Pipes -->
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="relayTo('whatsapp')" class="bg-surface-input hover:bg-brand-500/15 border border-surface-border hover:border-brand-500/40 text-ivory-100 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
+            <i data-lucide="message-circle" class="w-4 h-4 text-brand-400"></i> WhatsApp Line
+          </button>
+          <button onclick="relayTo('telegram')" class="bg-surface-input hover:bg-brand-500/15 border border-surface-border hover:border-brand-500/40 text-ivory-100 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
+            <i data-lucide="send" class="w-4 h-4 text-brand-400"></i> Telegram Wire
+          </button>
+          <button onclick="relayTo('email')" class="bg-surface-input hover:bg-brand-500/15 border border-surface-border hover:border-brand-500/40 text-ivory-100 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
+            <i data-lucide="mail" class="w-4 h-4 text-brand-400"></i> Private Post
+          </button>
+          <button onclick="relayTo('search')" class="bg-surface-input hover:bg-brand-500/15 border border-surface-border hover:border-brand-500/40 text-ivory-100 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
+            <i data-lucide="search" class="w-4 h-4 text-brand-400"></i> Archive Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Webhook & API Proxy -->
+      <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-2.5 shadow-lg shadow-black/30">
+        <span class="font-serif text-sm font-bold text-ivory-100 flex items-center gap-1.5">
+          <i data-lucide="terminal" class="w-4 h-4 text-brand-400"></i> Direct Wire / Webhook Proxy
+        </span>
+        <div class="flex gap-1.5">
+          <select id="apiMethod" class="bg-surface-input border border-surface-border rounded-xl px-2.5 py-2 text-xs font-mono text-brand-300 outline-none">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+          </select>
+          <input type="text" id="apiEndpoint" value="https://api.github.com/zen"
+            class="flex-1 bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-xs text-ivory-100 font-mono outline-none" />
+          <button onclick="triggerApiProxy()" class="gold-shimmer text-[#0b1310] text-xs font-bold px-3.5 py-2 rounded-xl active:scale-95">Transmit</button>
+        </div>
+        <pre id="apiResponseBox" class="bg-surface-input border border-surface-border rounded-xl p-3 text-[11px] font-mono text-brand-300 overflow-x-auto max-h-36">Wire standing by for transmission...</pre>
+      </div>
+    </section>
+
+    <!-- ================= TAB 4: ARCHIVES & CODE LEDGER (GITHUB) ================= -->
+    <section id="view-github" class="hidden space-y-3.5">
+      <div class="bg-surface-card border border-surface-border p-3.5 rounded-2xl space-y-2.5 shadow-lg shadow-black/30">
+        <div class="flex items-center justify-between">
+          <span class="font-serif text-base font-bold text-ivory-100 flex items-center gap-1.5">
+            <i data-lucide="library" class="w-4 h-4 text-brand-400"></i> Code Estate & Repository Ledger
+          </span>
+          <span class="text-[10px] font-mono text-brand-300">Live Inspection</span>
+        </div>
+        <form onsubmit="fetchGitHubBridge(event)" class="flex gap-2">
+          <input type="text" id="ghUsername" placeholder="GitHub handle..." value="vercel"
+            class="flex-1 bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-xs text-ivory-100 font-mono focus:outline-none focus:border-brand-500" />
+          <button type="submit" class="gold-shimmer text-[#0b1310] text-xs font-bold px-4 py-2 rounded-xl active:scale-95">Inspect</button>
         </form>
       </div>
-
       <div id="ghProfileHeader" class="hidden bg-surface-card border border-surface-border p-3.5 rounded-2xl flex items-center justify-between"></div>
-      <div id="ghReposList" class="space-y-2.5"></div>
-    </section>
-
-    <!-- VIEW 3: ACTION RELAY & WEBHOOK DISPATCHER -->
-    <section id="view-relay" class="hidden space-y-4">
-      <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-white flex items-center gap-1.5">
-            <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i> Universal Action Relay
-          </span>
-          <span class="text-[10px] font-mono text-slate-400">1 Input → Any Target</span>
-        </div>
-        <p class="text-[11px] text-slate-400">Type your command, note, or payload once. Nexus acts as the middleman and fires it directly into the service you choose.</p>
-
-        <textarea id="relayPayload" rows="4" placeholder="Type message, URL, JSON payload, or task to route..."
-          class="w-full bg-surface-input border border-surface-border rounded-xl p-3 text-xs text-white font-mono focus:outline-none focus:border-brand-500 resize-none"></textarea>
-
-        <!-- Instant Relay Pipes -->
-        <div class="grid grid-cols-2 gap-2 pt-1">
+      <div id="ghReposList" class="space-y-lass="grid grid-cols-2 gap-2 pt-1">
           <button onclick="relayTo('whatsapp')" class="bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
             <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Pipe
           </button>
