@@ -10,7 +10,6 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Luxury Serif + Clean Sans + Precision Mono -->
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <script>
@@ -26,20 +25,20 @@
           colors: {
             brand: {
               300: '#e5c98b',
-              400: '#d4af37', // Classic Gold
-              500: '#c5a059', // Burnished Brass
-              600: '#a6823c', // Deep Antique Gold
+              400: '#d4af37',
+              500: '#c5a059',
+              600: '#a6823c',
             },
             surface: {
-              bg: '#0b1310',     // Deep British Racing Green / Obsidian
-              card: '#121d18',   // Dark Club Leather Green
-              border: '#24352c', // Subtle Brass-Tinted Pine Border
-              input: '#0e1713'   // Deep Recessed Felt
+              bg: '#0b1310',
+              card: '#121d18',
+              border: '#24352c',
+              input: '#0e1713'
             },
             ivory: {
-              100: '#f5f0e6',    // Crisp Cream / Parchment
-              300: '#d5cbb8',    // Warm Linen
-              400: '#9e9689'     // Muted Taupe
+              100: '#f5f0e6',
+              300: '#d5cbb8',
+              400: '#9e9689'
             }
           }
         }
@@ -63,7 +62,7 @@
 </head>
 <body class="font-sans antialiased h-screen overflow-hidden flex flex-col justify-between">
 
-  <!-- ================= PRIVATE VAULT GATE (OLD MONEY EDITION) ================= -->
+  <!-- ================= PRIVATE VAULT GATE ================= -->
   <div id="adminGate" class="fixed inset-0 bg-surface-bg z-50 flex flex-col items-center justify-center p-6 text-center">
     <div class="w-16 h-16 rounded-full bg-surface-card border border-brand-500/40 flex items-center justify-center mb-5 shadow-2xl shadow-black">
       <i data-lucide="key-round" class="w-7 h-7 text-brand-400"></i>
@@ -89,7 +88,7 @@
     </div>
   </div>
 
-  <!-- ================= TOP HEADER & BESPOKE TICKER ================= -->
+  <!-- ================= TOP HEADER & TELEMETRY TICKER ================= -->
   <header class="pt-safe bg-surface-bg/95 border-b border-surface-border backdrop-blur-md z-20">
     <div class="px-4 pt-3 pb-2.5 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -119,7 +118,6 @@
       </div>
     </div>
 
-    <!-- LIVE BESPOKE TELEMETRY BAR -->
     <div class="px-4 py-1.5 bg-surface-card/90 border-t border-surface-border flex items-center justify-between text-[10px] font-mono text-ivory-300 overflow-x-auto no-scrollbar gap-5 whitespace-nowrap">
       <span id="tickerCrypto" class="text-brand-300">✦ Loading Exchange...</span>
       <span id="tickerWeather" class="text-ivory-300">✦ Climate Telemetry...</span>
@@ -130,7 +128,7 @@
   <!-- ================= MAIN SCROLLABLE STUDY ================= -->
   <main class="flex-1 overflow-y-auto no-scrollbar p-3.5 max-w-xl mx-auto w-full pb-28 space-y-3.5">
 
-    <!-- ================= TAB 1: PORTAL & X-RAY HUB ================= -->
+    <!-- VIEW 1: PORTAL & READER -->
     <section id="view-portal" class="space-y-3">
       <div class="bg-surface-card border border-surface-border p-3.5 rounded-2xl space-y-2.5 shadow-lg shadow-black/30">
         <div class="flex items-center justify-between">
@@ -154,11 +152,9 @@
           </button>
         </form>
 
-        <!-- Shortcut Bridge Pills -->
         <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-0.5" id="bridgePills"></div>
       </div>
 
-      <!-- Embedded Viewport Frame OR Parchment X-Ray Reader View -->
       <div class="bg-surface-card border border-surface-border rounded-2xl overflow-hidden flex flex-col h-[54vh] relative shadow-xl shadow-black/40">
         <div class="bg-surface-input px-3.5 py-2 border-b border-surface-border flex items-center justify-between text-xs">
           <div class="flex items-center gap-2 truncate">
@@ -175,15 +171,12 @@
           </div>
         </div>
 
-        <!-- Standard Iframe Viewport -->
         <iframe id="portalFrame" src="https://en.m.wikipedia.org/wiki/Old_money" allow="autoplay; encrypted-media; fullscreen" class="w-full flex-1 bg-[#f5f0e6]"></iframe>
-
-        <!-- Unblockable X-Ray Reader Container (Warm Ivory on Deep Pine) -->
         <div id="xrayContainer" class="hidden w-full flex-1 bg-surface-bg p-5 overflow-y-auto font-serif text-sm text-ivory-100 leading-relaxed whitespace-pre-wrap select-text"></div>
       </div>
     </section>
 
-    <!-- ================= TAB 2: PRIVATE COUNSEL (KEYLESS AI) ================= -->
+    <!-- VIEW 2: AI COUNSEL -->
     <section id="view-ai" class="hidden space-y-3.5">
       <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-3 shadow-lg shadow-black/30">
         <div class="flex items-center justify-between">
@@ -206,7 +199,6 @@
         </div>
       </div>
 
-      <!-- AI Output Box -->
       <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-2.5 shadow-lg shadow-black/30">
         <div class="flex items-center justify-between border-b border-surface-border pb-2">
           <span class="font-serif text-xs italic text-brand-300">Counsel Response Ledger</span>
@@ -222,7 +214,7 @@
       </div>
     </section>
 
-    <!-- ================= TAB 3: TELEGRAPH DISPATCH & QR SEAL ================= -->
+    <!-- VIEW 3: DISPATCH & RELAY -->
     <section id="view-relay" class="hidden space-y-3.5">
       <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-3 shadow-lg shadow-black/30">
         <div class="flex items-center justify-between">
@@ -242,13 +234,11 @@
         <textarea id="relayPayload" rows="3" placeholder="Dictate or compose memorandum once → dispatch via WhatsApp, Telegram, Courier Mail, or Webhook..."
           class="w-full bg-surface-input border border-surface-border rounded-xl p-3 text-xs text-ivory-100 placeholder-ivory-400/50 font-mono focus:outline-none focus:border-brand-500 resize-none"></textarea>
 
-        <!-- Instant QR Code Seal -->
         <div id="qrBeamBox" class="hidden bg-[#f5f0e6] p-4 rounded-xl border-2 border-brand-500 flex flex-col items-center justify-center space-y-2">
           <img id="qrImage" src="" alt="QR Seal" class="w-44 h-44" />
           <p class="font-serif text-xs text-[#0b1310] font-bold">Scan Seal with Camera to Receive Memorandum</p>
         </div>
 
-        <!-- 4 Instant Dispatch Pipes -->
         <div class="grid grid-cols-2 gap-2">
           <button onclick="relayTo('whatsapp')" class="bg-surface-input hover:bg-brand-500/15 border border-surface-border hover:border-brand-500/40 text-ivory-100 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
             <i data-lucide="message-circle" class="w-4 h-4 text-brand-400"></i> WhatsApp Line
@@ -265,7 +255,6 @@
         </div>
       </div>
 
-      <!-- Live Webhook & API Proxy -->
       <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-2.5 shadow-lg shadow-black/30">
         <span class="font-serif text-sm font-bold text-ivory-100 flex items-center gap-1.5">
           <i data-lucide="terminal" class="w-4 h-4 text-brand-400"></i> Direct Wire / Webhook Proxy
@@ -283,7 +272,7 @@
       </div>
     </section>
 
-    <!-- ================= TAB 4: ARCHIVES & CODE LEDGER (GITHUB) ================= -->
+    <!-- VIEW 4: GITHUB LEDGER -->
     <section id="view-github" class="hidden space-y-3.5">
       <div class="bg-surface-card border border-surface-border p-3.5 rounded-2xl space-y-2.5 shadow-lg shadow-black/30">
         <div class="flex items-center justify-between">
@@ -299,83 +288,57 @@
         </form>
       </div>
       <div id="ghProfileHeader" class="hidden bg-surface-card border border-surface-border p-3.5 rounded-2xl flex items-center justify-between"></div>
-      <div id="ghReposList" class="space-y-lass="grid grid-cols-2 gap-2 pt-1">
-          <button onclick="relayTo('whatsapp')" class="bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
-            <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Pipe
-          </button>
-          <button onclick="relayTo('telegram')" class="bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 text-sky-400 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
-            <i data-lucide="send" class="w-4 h-4"></i> Telegram Pipe
-          </button>
-          <button onclick="relayTo('email')" class="bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
-            <i data-lucide="mail" class="w-4 h-4"></i> Email Dispatch
-          </button>
-          <button onclick="relayTo('search')" class="bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-400 p-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 active:scale-95 transition-all">
-            <i data-lucide="globe" class="w-4 h-4"></i> Deep Query
-          </button>
-        </div>
-      </div>
-
-      <!-- Live API / Webhook Middleman Caller -->
-      <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-3">
-        <span class="text-xs font-bold text-white flex items-center gap-1.5">
-          <i data-lucide="webhook" class="w-4 h-4 text-brand-400"></i> Live API / Webhook Proxy
-        </span>
-        <div class="flex gap-2">
-          <select id="apiMethod" class="bg-surface-input border border-surface-border rounded-xl px-2.5 py-2 text-xs font-mono text-brand-400 outline-none">
-            <option value="GET">GET</option>
-            <option value="POST">POST</option>
-          </select>
-          <input type="text" id="apiEndpoint" value="https://api.github.com/zen" placeholder="https://api..."
-            class="flex-1 bg-surface-input border border-surface-border rounded-xl px-3 py-2 text-xs text-white font-mono outline-none" />
-          <button onclick="triggerApiProxy()" class="bg-brand-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl active:scale-95">Fire</button>
-        </div>
-        <pre id="apiResponseBox" class="bg-surface-bg border border-surface-border rounded-xl p-3 text-[11px] font-mono text-emerald-400 overflow-x-auto max-h-40">Ready to proxy live requests...</pre>
-      </div>
+      <div id="ghReposList" class="space-y-2.5"></div>
     </section>
 
   </main>
 
   <!-- ================= BOTTOM NAVIGATION ================= -->
-  <nav class="fixed bottom-0 inset-x-0 bg-surface-bg/95 border-t border-surface-border pb-safe z-30">
-    <div class="max-w-xl mx-auto flex items-center justify-around px-2 py-2">
-      <button onclick="switchView('portal')" id="nav-portal" class="flex flex-col items-center gap-1 py-1 px-4 text-brand-400">
-        <i data-lucide="layout-template" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold">Portal Hub</span>
+  <nav class="fixed bottom-0 inset-x-0 bg-surface-bg/95 border-t border-surface-border pb-safe z-30 backdrop-blur-md">
+    <div class="max-w-xl mx-auto flex items-center justify-around px-1 py-2">
+      <button onclick="switchView('portal')" id="nav-portal" class="flex flex-col items-center gap-1 py-1 px-3 text-brand-400">
+        <i data-lucide="compass" class="w-5 h-5"></i>
+        <span class="text-[10px] font-semibold tracking-wide">Portal</span>
       </button>
-      <button onclick="switchView('github')" id="nav-github" class="flex flex-col items-center gap-1 py-1 px-4 text-slate-400">
-        <i data-lucide="git-pull-request" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold">Live GitHub</span>
+      <button onclick="switchView('ai')" id="nav-ai" class="flex flex-col items-center gap-1 py-1 px-3 text-ivory-400">
+        <i data-lucide="feather" class="w-5 h-5"></i>
+        <span class="text-[10px] font-semibold tracking-wide">Counsel</span>
       </button>
-      <button onclick="switchView('relay')" id="nav-relay" class="flex flex-col items-center gap-1 py-1 px-4 text-slate-400">
-        <i data-lucide="workflow" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold">Action Relay</span>
+      <button onclick="switchView('relay')" id="nav-relay" class="flex flex-col items-center gap-1 py-1 px-3 text-ivory-400">
+        <i data-lucide="send" class="w-5 h-5"></i>
+        <span class="text-[10px] font-semibold tracking-wide">Dispatch</span>
+      </button>
+      <button onclick="switchView('github')" id="nav-github" class="flex flex-col items-center gap-1 py-1 px-3 text-ivory-400">
+        <i data-lucide="library" class="w-5 h-5"></i>
+        <span class="text-[10px] font-semibold tracking-wide">Ledger</span>
       </button>
     </div>
   </nav>
 
-  <!-- ================= JAVASCRIPT ENGINE ================= -->
+  <!-- ================= JAVASCRIPT MASTER ENGINE ================= -->
   <script>
     const MASTER_PIN = "1234";
+    let currentMountedUrl = "https://en.m.wikipedia.org/wiki/Old_money";
 
-    // Default Stateless Bridges (Can be encoded directly into URL Hash!)
     let config = {
       ghUser: "vercel",
+      myPhone: "",
+      myEmail: "",
       bridges: [
-        { name: "Wiki Proxy", url: "https://en.m.wikipedia.org/wiki/Main_Page" },
-        { name: "HN Live", url: "https://news.ycombinator.com" },
-        { name: "DevDocs", url: "https://devdocs.io" },
-        { name: "MDN", url: "https://developer.mozilla.org" }
+        { name: "Heritage Wiki", url: "https://en.m.wikipedia.org/wiki/Old_money" },
+        { name: "Classical FM (YT)", url: "https://www.youtube.com/watch?v=jfKfPfyJRdk" },
+        { name: "HackerNews", url: "https://news.ycombinator.com" },
+        { name: "DevDocs", url: "https://devdocs.io" }
       ]
     };
 
-    // 1. URL-AS-A-DATABASE ENGINE (Zero Backend Storage)
     function loadStateFromUrlHash() {
       const hash = window.location.hash.replace('#nexus=', '');
       if (hash) {
         try {
-          const decoded = JSON.parse(atob(hash));
-          config = { ...config, ...decoded };
-          document.getElementById('activeBridgeLabel').innerText = 'Loaded from URL Hash State';
+          config = { ...config, ...JSON.parse(atob(hash)) };
+          document.getElementById('ghUsername').value = config.ghUser || 'vercel';
+          document.getElementById('activeBridgeLabel').innerText = 'Bespoke Seal Loaded';
         } catch (e) {}
       }
     }
@@ -384,144 +347,220 @@
       const encoded = btoa(JSON.stringify(config));
       window.location.hash = `nexus=${encoded}`;
       navigator.clipboard.writeText(window.location.href);
-      alert("Stateless Master Link copied! Your entire setup is encoded inside the URL itself—no database needed.");
+      alert("Personal Reserve Link sealed & copied! Bookmark this URL—your custom shortcuts and speed-dial details are encoded inside the link itself.");
     }
 
-    // 2. ADMIN GATE
+    function openSettingsModal() {
+      const phone = prompt("Enter your WhatsApp number with country code (e.g. 919876543210) for instant self-dispatch:", config.myPhone);
+      if (phone !== null) config.myPhone = phone.replace(/\D/g, '');
+      const email = prompt("Enter your private Email address for 1-tap dispatch:", config.myEmail);
+      if (email !== null) config.myEmail = email.trim();
+      alert("Private Speed-Dial updated. Tap 'Seal Link' in the top bar to save permanently into your URL.");
+    }
+
     function unlockAdmin() {
-      const val = document.getElementById('pinInput').value;
-      if (val === MASTER_PIN) {
+      if (document.getElementById('pinInput').value === MASTER_PIN) {
         sessionStorage.setItem('nexus_unlocked', '1');
         document.getElementById('adminGate').classList.add('hidden');
       } else {
         document.getElementById('pinError').classList.remove('hidden');
       }
     }
-
     function quickUnlock() {
       document.getElementById('pinInput').value = MASTER_PIN;
       unlockAdmin();
     }
-
     function lockAdmin() {
       sessionStorage.removeItem('nexus_unlocked');
       document.getElementById('pinInput').value = '';
       document.getElementById('adminGate').classList.remove('hidden');
     }
 
-    // 3. PORTAL ENGINE ("Middleman Acting as Main Man")
+    async function initLiveRadar() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
+        const data = await res.json();
+        document.getElementById('tickerCrypto').innerText = `✦ BTC $${data.bitcoin.usd.toLocaleString()} • ETH $${data.ethereum.usd.toLocaleString()}`;
+      } catch (e) {
+        document.getElementById('tickerCrypto').innerText = '✦ Exchange Standby';
+      }
+
+      try {
+        const ipRes = await fetch('https://ipapi.co/json/');
+        const ipData = await ipRes.json();
+        document.getElementById('tickerIp').innerText = `✦ ${ipData.city || 'Private Node'}, ${ipData.country_code || ''}`;
+
+        if (ipData.latitude && ipData.longitude) {
+          const wRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${ipData.latitude}&longitude=${ipData.longitude}&current_weather=true`);
+          const wData = await wRes.json();
+          document.getElementById('tickerWeather').innerText = `✦ ${wData.current_weather.temperature}°C • Wind ${wData.current_weather.windspeed}km/h`;
+        }
+      } catch (e) {
+        document.getElementById('tickerIp').innerText = '✦ Discreet Proxy On';
+        document.getElementById('tickerWeather').innerText = '✦ Climate Standby';
+      }
+    }
+
     function renderBridgePills() {
-      const container = document.getElementById('bridgePills');
-      container.innerHTML = config.bridges.map((b, i) => `
+      document.getElementById('bridgePills').innerHTML = config.bridges.map(b => `
         <button onclick="mountUrl('${b.url}', '${b.name}')"
-          class="px-3 py-1 rounded-xl bg-surface-input hover:bg-brand-500/20 border border-surface-border hover:border-brand-500/40 text-[11px] font-medium text-slate-300 hover:text-brand-400 shrink-0 transition-all">
-          ⚡ ${b.name}
+          class="px-3 py-1 rounded-xl bg-surface-input hover:bg-brand-500/15 border border-surface-border hover:border-brand-500/40 text-[11px] font-medium text-ivory-300 hover:text-brand-300 shrink-0 transition-all">
+          ✦ ${b.name}
         </button>
       `).join('');
     }
 
-    function mountUrl(rawUrl, label = "Mounted Node") {
-      let url = rawUrl.trim();
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'https://' + url;
+    function convertMediaUrl(url) {
+      const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+      const match = url.match(ytRegex);
+      if (match && match[1]) {
+        return `https://www.youtube.com/embed/${match[1]}?autoplay=1`;
       }
-      document.getElementById('portalFrame').src = url;
-      document.getElementById('portalTitle').innerText = `nexus://proxy/${label.toLowerCase().replace(/\s+/g, '-')}`;
+      return url;
+    }
+
+    function mountUrl(rawUrl, label = "Estate") {
+      let url = rawUrl.trim();
+      if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
+      currentMountedUrl = url;
+
+      const finalUrl = convertMediaUrl(url);
+      document.getElementById('xrayContainer').classList.add('hidden');
+      document.getElementById('btnReadAloud').classList.add('hidden');
+      const frame = document.getElementById('portalFrame');
+      frame.classList.remove('hidden');
+      frame.src = finalUrl;
+
+      document.getElementById('portalTitle').innerText = `reserve://${label.toLowerCase().replace(/\s+/g, '-')}`;
       document.getElementById('portalExternalFallback').href = url;
     }
 
-    function loadIntoPortal(e) {
+    function handlePortalSubmit(e) {
       e.preventDefault();
-      const input = document.getElementById('portalUrlInput');
-      if (!input.value.trim()) return;
-      mountUrl(input.value, input.value);
-      input.value = '';
+      const val = document.getElementById('portalUrlInput').value.trim();
+      if (!val) return;
+      mountUrl(val, val);
+    }
+
+    async function triggerXRayCurrent() {
+      const inputVal = document.getElementById('portalUrlInput').value.trim();
+      let target = inputVal || currentMountedUrl;
+      if (!target.startsWith('http')) target = 'https://' + target;
+      currentMountedUrl = target;
+
+      const frame = document.getElementById('portalFrame');
+      const xray = document.getElementById('xrayContainer');
+      frame.classList.add('hidden');
+      xray.classList.remove('hidden');
+      document.getElementById('btnReadAloud').classList.remove('hidden');
+      document.getElementById('portalTitle').innerText = `reader://clean-manuscript`;
+      xray.innerText = `✦ Extracting clean manuscript from:\n${target}\n\nRemoving advertisements and frame restrictions...`;
+
+      try {
+        const res = await fetch(`https://r.jina.ai/${target}`);
+        const text = await res.text();
+        xray.innerText = text || "No readable manuscript found at this address.";
+      } catch (err) {
+        xray.innerText = "Reader Error: Could not transcribe page. Use the top-right external link icon.";
+      }
     }
 
     function openAddBridgeModal() {
-      const name = prompt("Name this Bridge (e.g. My Docs):");
+      const name = prompt("Title for this Pinned Estate:");
       if (!name) return;
-      const url = prompt("Target URL (https://...):");
+      const url = prompt("Target Address (URL):");
       if (!url) return;
       config.bridges.push({ name, url });
       renderBridgePills();
       mountUrl(url, name);
     }
 
-    // 4. LIVE GITHUB BRIDGE (Fetches live data on the fly)
-    async function fetchGitHubBridge(e) {
-      if (e) e.preventDefault();
-      const user = document.getElementById('ghUsername').value.trim();
-      if (!user) return;
-      config.ghUser = user;
-
-      const list = document.getElementById('ghReposList');
-      const header = document.getElementById('ghProfileHeader');
-      list.innerHTML = `<div class="text-center py-8 text-xs text-slate-400 font-mono">Bridging live nodes from github.com/${user}...</div>`;
+    async function runAiText() {
+      const promptText = document.getElementById('aiPrompt').value.trim();
+      if (!promptText) return alert("Please enter your inquiry first.");
+      const out = document.getElementById('aiTextOutput');
+      document.getElementById('aiImageOutput').classList.add('hidden');
+      out.innerText = "✦ Consulting Private Counsel...";
 
       try {
-        const [uRes, rRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${user}`),
-          fetch(`https://api.github.com/users/${user}/repos?sort=updated&per_page=8`)
-        ]);
-        const uData = await uRes.json();
-        const rData = await rRes.json();
-
-        if (uData.message === "Not Found") {
-          list.innerHTML = `<div class="text-center py-8 text-xs text-rose-400">User not found on GitHub.</div>`;
-          return;
-        }
-
-        header.classList.remove('hidden');
-        header.innerHTML = `
-          <div class="flex items-center gap-3">
-            <img src="${uData.avatar_url}" class="w-10 h-10 rounded-xl border border-surface-border" />
-            <div>
-              <h3 class="text-xs font-bold text-white">${uData.name || uData.login}</h3>
-              <p class="text-[10px] text-slate-400 font-mono">${uData.public_repos} Public Nodes • ${uData.followers} Followers</p>
-            </div>
-          </div>
-          <a href="${uData.html_url}" target="_blank" class="text-[11px] bg-surface-input border border-surface-border px-2.5 py-1.5 rounded-lg text-brand-400 font-mono">Profile ↗</a>
-        `;
-
-        list.innerHTML = rData.map(repo => `
-          <div class="bg-surface-card border border-surface-border p-3.5 rounded-2xl flex items-center justify-between gap-3">
-            <div class="min-w-0 flex-1">
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-white truncate">${repo.name}</span>
-                ${repo.language ? `<span class="text-[9px] font-mono bg-brand-500/15 text-brand-400 px-1.5 py-0.5 rounded">${repo.language}</span>` : ''}
-              </div>
-              <p class="text-[11px] text-slate-400 truncate mt-0.5">${repo.description || 'Live bridged repository node'}</p>
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-              ${repo.homepage ? `
-                <button onclick="switchView('portal'); mountUrl('${repo.homepage}', '${repo.name}')"
-                  class="text-[10px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2.5 py-1.5 rounded-xl font-semibold">
-                  Open Inside App
-                </button>
-              ` : ''}
-              <a href="${repo.html_url}" target="_blank" class="p-2 rounded-xl bg-surface-input text-slate-300 hover:text-white">
-                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-              </a>
-            </div>
-          </div>
-        `).join('');
-        lucide.createIcons();
-      } catch (err) {
-        list.innerHTML = `<div class="text-center py-8 text-xs text-rose-400">API Bridge Error.</div>`;
+        const res = await fetch(`https://text.pollinations.ai/${encodeURIComponent(promptText)}`);
+        const reply = await res.text();
+        out.innerText = reply;
+      } catch (e) {
+        out.innerText = "Counsel line is momentarily occupied. Please try again.";
       }
     }
 
-    // 5. ACTION RELAY ROUTER
+    function runAiImage() {
+      const promptText = document.getElementById('aiPrompt').value.trim();
+      if (!promptText) return alert("Please describe the artwork to commission.");
+      const out = document.getElementById('aiTextOutput');
+      const imgWrap = document.getElementById('aiImageOutput');
+      const img = document.getElementById('aiGeneratedImg');
+
+      out.innerText = `✦ Commissioning bespoke illustration for: "${promptText}"...`;
+      imgWrap.classList.remove('hidden');
+      img.src = `https://image.pollinations.ai/prompt/${encodeURIComponent(promptText)}?width=768&height=768&nologo=true&seed=${Date.now()}`;
+    }
+
+    function copyAiOutput() {
+      navigator.clipboard.writeText(document.getElementById('aiTextOutput').innerText);
+      alert("Transcribed to clipboard.");
+    }
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return alert("Voice narration is not supported on this browser.");
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text.slice(0, 1500));
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakXRayContent() {
+      speakText(document.getElementById('xrayContainer').innerText);
+    }
+
+    function startVoiceInput() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) return alert("Voice dictation is supported in Safari and Chrome.");
+      const recognition = new SpeechRecognition();
+      const btn = document.getElementById('btnMic');
+      btn.innerText = "● Listening...";
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        const box = document.getElementById('relayPayload');
+        box.value = (box.value ? box.value + " " : "") + transcript;
+        btn.innerHTML = `<i data-lucide="mic" class="w-3.5 h-3.5"></i> Dictate`;
+        lucide.createIcons();
+      };
+      recognition.onerror = () => {
+        btn.innerHTML = `<i data-lucide="mic" class="w-3.5 h-3.5"></i> Dictate`;
+        lucide.createIcons();
+      };
+      recognition.start();
+    }
+
+    function toggleQrBeam() {
+      const text = document.getElementById('relayPayload').value.trim() || window.location.href;
+      const box = document.getElementById('qrBeamBox');
+      const img = document.getElementById('qrImage');
+      if (box.classList.contains('hidden')) {
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&color=0b1310&bgcolor=f5f0e6&data=${encodeURIComponent(text)}`;
+        box.classList.remove('hidden');
+      } else {
+        box.classList.add('hidden');
+      }
+    }
+
     function relayTo(target) {
       const text = document.getElementById('relayPayload').value.trim();
-      if (!text) return alert("Enter a message or payload first.");
+      if (!text) return alert("Please compose or dictate a memorandum first.");
       const encoded = encodeURIComponent(text);
 
       const routes = {
-        whatsapp: `https://wa.me/?text=${encoded}`,
+        whatsapp: config.myPhone ? `https://wa.me/${config.myPhone}?text=${encoded}` : `https://wa.me/?text=${encoded}`,
         telegram: `https://t.me/share/url?url=${encoded}`,
-        email: `mailto:?subject=Nexus%20Dispatch&body=${encoded}`,
+        email: `mailto:${config.myEmail || ''}?subject=Executive%20Dispatch&body=${encoded}`,
         search: `https://duckduckgo.com/?q=${encoded}`
       };
       window.open(routes[target], '_blank');
@@ -533,7 +572,7 @@
       const payload = document.getElementById('relayPayload').value.trim();
       const box = document.getElementById('apiResponseBox');
 
-      box.innerText = "Routing request through Nexus...";
+      box.innerText = "Transmitting wire...";
       try {
         const opts = { method };
         if (method === 'POST' && payload) {
@@ -541,19 +580,80 @@
           opts.body = payload;
         }
         const res = await fetch(url, opts);
-        const contentType = res.headers.get("content-type") || "";
-        const data = contentType.includes("application/json") ? JSON.stringify(await res.json(), null, 2) : await res.text();
-        box.innerText = data;
+        const ct = res.headers.get("content-type") || "";
+        box.innerText = ct.includes("json") ? JSON.stringify(await res.json(), null, 2) : await res.text();
       } catch (e) {
-        box.innerText = "Bridge Error: " + e.message;
+        box.innerText = "Transmission Error: " + e.message;
       }
     }
 
-    // 6. VIEW NAVIGATION
+    async function fetchGitHubBridge(e) {
+      if (e) e.preventDefault();
+      const user = document.getElementById('ghUsername').value.trim();
+      if (!user) return;
+      config.ghUser = user;
+
+      const list = document.getElementById('ghReposList');
+      const header = document.getElementById('ghProfileHeader');
+      list.innerHTML = `<div class="text-center py-8 text-xs text-ivory-400 font-serif italic">Inspecting archives for ${user}...</div>`;
+
+      try {
+        const [uRes, rRes] = await Promise.all([
+          fetch(`https://api.github.com/users/${user}`),
+          fetch(`https://api.github.com/users/${user}/repos?sort=updated&per_page=8`)
+        ]);
+        const uData = await uRes.json();
+        const rData = await rRes.json();
+
+        if (uData.message === "Not Found") {
+          list.innerHTML = `<div class="text-center py-8 text-xs text-red-400">Archive not found.</div>`;
+          return;
+        }
+
+        header.classList.remove('hidden');
+        header.innerHTML = `
+          <div class="flex items-center gap-3">
+            <img src="${uData.avatar_url}" class="w-10 h-10 rounded-full border border-brand-500/50" />
+            <div>
+              <h3 class="font-serif text-sm font-bold text-ivory-100">${uData.name || uData.login}</h3>
+              <p class="text-[10px] text-ivory-400 font-mono">${uData.public_repos} Archives • ${uData.followers} Patrons</p>
+            </div>
+          </div>
+          <a href="${uData.html_url}" target="_blank" class="text-[11px] bg-surface-input border border-brand-500/30 px-2.5 py-1.5 rounded-lg text-brand-300 font-mono">Registry ↗</a>
+        `;
+
+        list.innerHTML = rData.map(repo => `
+          <div class="bg-surface-card border border-surface-border p-3.5 rounded-2xl flex items-center justify-between gap-3">
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <span class="font-serif text-sm font-bold text-ivory-100 truncate">${repo.name}</span>
+                ${repo.language ? `<span class="text-[9px] font-mono bg-brand-500/15 text-brand-300 border border-brand-500/30 px-1.5 py-0.5 rounded">${repo.language}</span>` : ''}
+              </div>
+              <p class="text-[11px] text-ivory-400 truncate mt-0.5">${repo.description || 'Registered repository estate'}</p>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              ${repo.homepage ? `
+                <button onclick="switchView('portal'); mountUrl('${repo.homepage}', '${repo.name}')"
+                  class="text-[10px] gold-shimmer text-[#0b1310] px-2.5 py-1.5 rounded-xl font-bold">
+                  Mount
+                </button>
+              ` : ''}
+              <a href="${repo.html_url}" target="_blank" class="p-2 rounded-xl bg-surface-input border border-surface-border text-ivory-300 hover:text-brand-300">
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        `).join('');
+        lucide.createIcons();
+      } catch (err) {
+        list.innerHTML = `<div class="text-center py-8 text-xs text-red-400">Archive ledger temporarily unreachable.</div>`;
+      }
+    }
+
     function switchView(view) {
-      ['portal', 'github', 'relay'].forEach(v => {
+      ['portal', 'ai', 'relay', 'github'].forEach(v => {
         document.getElementById(`view-${v}`).classList.toggle('hidden', v !== view);
-        document.getElementById(`nav-${v}`).className = `flex flex-col items-center gap-1 py-1 px-4 ${v === view ? 'text-brand-400' : 'text-slate-400'}`;
+        document.getElementById(`nav-${v}`).className = `flex flex-col items-center gap-1 py-1 px-3 ${v === view ? 'text-brand-400' : 'text-ivory-400'}`;
       });
       if (view === 'github' && document.getElementById('ghReposList').innerHTML === '') {
         fetchGitHubBridge();
@@ -561,10 +661,10 @@
       lucide.createIcons();
     }
 
-    // INIT
     window.addEventListener('DOMContentLoaded', () => {
       loadStateFromUrlHash();
       renderBridgePills();
+      initLiveRadar();
       lucide.createIcons();
       if (sessionStorage.getItem('nexus_unlocked') === '1') {
         document.getElementById('adminGate').classList.add('hidden');
