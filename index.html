@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#090d16" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>PulseFlow — Focus & Project Hub</title>
+
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              900: '#1e1b4b',
+            },
+            surface: {
+              bg: '#090d16',
+              card: '#111827',
+              border: '#1f293d',
+              input: '#1a2234'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #090d16;
+      color: #f3f4f6;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #27354f;
+      border-radius: 999px;
+    }
+    /* Safe padding for modern iPhones */
+    .pb-safe {
+      padding-bottom: env(safe-area-inset-bottom, 16px);
+    }
+    .pt-safe {
+      padding-top: env(safe-area-inset-top, 16px);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased h-screen overflow-hidden flex flex-col justify-between">
+
+  <!-- TOP HEADER -->
+  <header class="px-5 pt-safe pt-4 pb-3 border-b border-surface-border bg-surface-bg/80 backdrop-blur-md flex items-center justify-between z-20">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/25">
+        <i data-lucide="zap" class="w-5 h-5 text-white"></i>
+      </div>
+      <div>
+        <h1 class="font-bold text-base tracking-tight text-white leading-tight">PulseFlow</h1>
+        <p class="text-[11px] text-gray-400 font-medium" id="headerDate">Mobile Project Hub</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="quickAddSampleData()" class="text-xs bg-surface-card hover:bg-surface-border text-gray-300 border border-surface-border px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 active:scale-95 transition-all">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-400"></i>
+        <span>Demo Data</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN SCROLLABLE CONTENT VIEWPORTS -->
+  <main class="flex-1 overflow-y-auto custom-scroll relative p-4 max-w-xl mx-auto w-full pb-28">
+
+    <!-- VIEW 1: TASKS BOARD -->
+    <section id="view-tasks" class="space-y-4">
+      <!-- Search & Filters -->
+      <div class="flex gap-2">
+        <div class="relative flex-1">
+          <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-3"></i>
+          <input type="text" id="taskSearch" placeholder="Search project tasks..." oninput="renderTasks()"
+            class="w-full pl-9 pr-3 py-2 bg-surface-card border border-surface-border rounded-xl text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-brand-500 transition-colors" />
+        </div>
+        <select id="taskFilter" onchange="renderTasks()"
+          class="bg-surface-card border border-surface-border rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-brand-500">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Done</option>
+        </select>
+      </div>
+
+      <!-- Add Task Input Bar -->
+      <form onsubmit="handleAddTask(event)" class="bg-surface-card border border-surface-border p-3.5 rounded-2xl shadow-sm space-y-2.5">
+        <input type="text" id="newTaskTitle" required placeholder="What needs to be done?"
+          class="w-full bg-transparent text-sm font-medium text-white placeholder-gray-500 focus:outline-none" />
+        
+        <div class="flex items-center justify-between pt-2 border-t border-surface-border/50 text-xs">
+          <div class="flex items-center gap-2">
+            <select id="newTaskPriority" class="bg-surface-input border border-surface-border text-gray-300 rounded-lg px-2 py-1 text-[11px] focus:outline-none">
+              <option value="High">🔴 High</option>
+              <option value="Medium" selected>🟡 Medium</option>
+              <option value="Low">🟢 Low</option>
+            </select>
+            <select id="newTaskTag" class="bg-surface-input border border-surface-border text-gray-300 rounded-lg px-2 py-1 text-[11px] focus:outline-none">
+              <option value="Dev">💻 Dev</option>
+              <option value="Design">🎨 Design</option>
+              <option value="Docs">📄 Docs</option>
+              <option value="General">⚡ General</option>
+            </select>
+          </div>
+          <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white font-medium px-3.5 py-1.5 rounded-xl flex items-center gap-1 active:scale-95 transition-transform shadow-md shadow-brand-500/20">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> Add
+          </button>
+        </div>
+      </form>
+
+      <!-- Task List Container -->
+      <div id="tasksList" class="space-y-2.5">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 2: FOCUS STUDIO (POMODORO) -->
+    <section id="view-focus" class="hidden flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
+      <div class="w-full max-w-sm bg-surface-card border border-surface-border p-6 rounded-3xl shadow-xl flex flex-col items-center">
+        <!-- Mode Switcher -->
+        <div class="flex items-center bg-surface-input p-1 rounded-xl mb-6 border border-surface-border">
+          <button onclick="setTimerMode('pomodoro')" id="btn-mode-pomodoro" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-500 text-white transition-all">Pomodoro (25m)</button>
+          <button onclick="setTimerMode('short')" id="btn-mode-short" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all">Rest (5m)</button>
+          <button onclick="setTimerMode('deep')" id="btn-mode-deep" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all">Deep (50m)</button>
+        </div>
+
+        <!-- Circular Visual Timer -->
+        <div class="relative w-56 h-56 flex items-center justify-center my-2">
+          <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="44" stroke="#1f293d" stroke-width="6" fill="transparent" />
+            <circle id="timerRing" cx="50" cy="50" r="44" stroke="#6366f1" stroke-width="6" stroke-linecap="round" fill="transparent"
+              stroke-dasharray="276.46" stroke-dashoffset="0" class="transition-all duration-1000 ease-linear" />
+          </svg>
+          <div class="absolute flex flex-col items-center">
+            <span id="timerDisplay" class="text-4xl font-extrabold tracking-tight text-white font-mono">25:00</span>
+            <span id="timerStatus" class="text-[11px] font-semibold text-brand-400 uppercase tracking-widest mt-1">Ready to Sprint</span>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-3 mt-6">
+          <button onclick="toggleTimer()" id="btnTimerToggle" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold px-6 py-2.5 rounded-2xl flex items-center gap-2 active:scale-95 transition-all shadow-lg shadow-brand-500/25">
+            <i data-lucide="play" class="w-4 h-4 fill-white" id="iconTimerPlay"></i>
+            <span id="textTimerPlay">Start</span>
+          </button>
+          <button onclick="resetTimer()" class="bg-surface-input hover:bg-surface-border text-gray-300 p-2.5 rounded-2xl border border-surface-border active:scale-95 transition-all">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          </button>
+          <button onclick="toggleAmbientSound()" id="btnSound" class="bg-surface-input hover:bg-surface-border text-gray-300 p-2.5 rounded-2xl border border-surface-border active:scale-95 transition-all" title="Toggle Focus Sound">
+            <i data-lucide="volume-2" class="w-4 h-4" id="iconSound"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: SCRATCHPAD NOTES -->
+    <section id="view-notes" class="hidden space-y-4">
+      <div class="bg-surface-card border border-surface-border rounded-2xl p-4 flex flex-col h-[65vh]">
+        <div class="flex items-center justify-between pb-3 border-b border-surface-border">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-edit" class="w-4 h-4 text-brand-400"></i>
+            <span class="text-xs font-bold text-gray-200 uppercase tracking-wider">Quick Scratchpad</span>
+          </div>
+          <div class="flex items-center gap-2 text-[11px]">
+            <span id="noteSaveIndicator" class="text-emerald-400">● Saved</span>
+            <button onclick="copyNotes()" class="px-2 py-1 bg-surface-input border border-surface-border rounded-lg text-gray-300 hover:text-white active:scale-95">Copy</button>
+          </div>
+        </div>
+        <textarea id="notesArea" oninput="handleNoteInput()" placeholder="Jot down quick project thoughts, meeting notes, code snippets, or ideas here... (Auto-saved)"
+          class="w-full flex-1 bg-transparent text-sm text-gray-200 placeholder-gray-600 p-3 outline-none resize-none font-mono leading-relaxed"></textarea>
+        <div class="pt-2 border-t border-surface-border/50 flex justify-between text-[11px] text-gray-500">
+          <span id="noteCharCount">0 characters</span>
+          <span>Stored locally on this device</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: ANALYTICS -->
+    <section id="view-analytics" class="hidden space-y-4">
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-surface-card border border-surface-border p-4 rounded-2xl">
+          <span class="text-xs text-gray-400 font-medium">Task Completion</span>
+          <p class="text-2xl font-extrabold text-white mt-1" id="statCompletion">0%</p>
+          <div class="w-full bg-surface-input h-1.5 rounded-full mt-3 overflow-hidden">
+            <div id="statBar" class="bg-brand-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="bg-surface-card border border-surface-border p-4 rounded-2xl">
+          <span class="text-xs text-gray-400 font-medium">Focus Sprints</span>
+          <p class="text-2xl font-extrabold text-brand-400 mt-1" id="statFocusTime">0 min</p>
+          <span class="text-[11px] text-gray-500 mt-1 block">Logged sessions</span>
+        </div>
+      </div>
+
+      <div class="bg-surface-card border border-surface-border p-4 rounded-2xl space-y-3">
+        <h3 class="text-xs font-bold text-gray-300 uppercase tracking-wider">Project Health</h3>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between py-1.5 border-b border-surface-border/50 text-gray-400">
+            <span>Total Tasks</span>
+            <span class="font-bold text-white" id="statTotalTasks">0</span>
+          </div>
+          <div class="flex justify-between py-1.5 border-b border-surface-border/50 text-gray-400">
+            <span>Completed</span>
+            <span class="font-bold text-emerald-400" id="statCompletedTasks">0</span>
+          </div>
+          <div class="flex justify-between py-1.5 text-gray-400">
+            <span>High Priority Pending</span>
+            <span class="font-bold text-rose-400" id="statHighPriority">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MOBILE-FIRST BOTTOM NAVIGATION DOCK -->
+  <nav class="fixed bottom-0 inset-x-0 bg-surface-bg/95 border-t border-surface-border backdrop-blur-lg pb-safe z-30">
+    <div class="max-w-xl mx-auto flex items-center justify-around px-2 py-2">
+      <button onclick="switchTab('tasks')" id="tab-tasks" class="flex flex-col items-center gap-1 py-1 px-3 text-brand-400 transition-colors">
+        <i data-lucide="check-square" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold tracking-tight">Tasks</span>
+      </button>
+
+      <button onclick="switchTab('focus')" id="tab-focus" class="flex flex-col items-center gap-1 py-1 px-3 text-gray-400 hover:text-gray-200 transition-colors">
+        <i data-lucide="clock" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold tracking-tight">Focus</span>
+      </button>
+
+      <button onclick="switchTab('notes')" id="tab-notes" class="flex flex-col items-center gap-1 py-1 px-3 text-gray-400 hover:text-gray-200 transition-colors">
+        <i data-lucide="pen-tool" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold tracking-tight">Notes</span>
+      </button>
+
+      <button onclick="switchTab('analytics')" id="tab-analytics" class="flex flex-col items-center gap-1 py-1 px-3 text-gray-400 hover:text-gray-200 transition-colors">
+        <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold tracking-tight">Stats</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    // INITIAL STATE & STORAGE
+    let tasks = JSON.parse(localStorage.getItem('pf_tasks') || '[]');
+    let notes = localStorage.getItem('pf_notes') || '';
+    let totalFocusSeconds = parseInt(localStorage.getItem('pf_focus_secs') || '0');
+
+    // TAB MANAGEMENT
+    function switchTab(tabId) {
+      const views = ['tasks', 'focus', 'notes', 'analytics'];
+      views.forEach(v => {
+        document.getElementById(`view-${v}`).classList.toggle('hidden', v !== tabId);
+        const tabBtn = document.getElementById(`tab-${v}`);
+        if (v === tabId) {
+          tabBtn.className = 'flex flex-col items-center gap-1 py-1 px-3 text-brand-400 transition-colors';
+        } else {
+          tabBtn.className = 'flex flex-col items-center gap-1 py-1 px-3 text-gray-400 hover:text-gray-200 transition-colors';
+        }
+      });
+      if (tabId === 'analytics') updateAnalytics();
+      lucide.createIcons();
+    }
+
+    // TASKS MANAGEMENT
+    function saveTasks() {
+      localStorage.setItem('pf_tasks', JSON.stringify(tasks));
+      renderTasks();
+      updateAnalytics();
+    }
+
+    function handleAddTask(e) {
+      e.preventDefault();
+      const input = document.getElementById('newTaskTitle');
+      const priority = document.getElementById('newTaskPriority').value;
+      const tag = document.getElementById('newTaskTag').value;
+      
+      if (!input.value.trim()) return;
+
+      tasks.unshift({
+        id: Date.now(),
+        title: input.value.trim(),
+        priority: priority,
+        tag: tag,
+        completed: false,
+        createdAt: new Date().toISOString()
+      });
+
+      input.value = '';
+      saveTasks();
+    }
+
+    function toggleTask(id) {
+      tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+      if (navigator.vibrate) navigator.vibrate(20);
+      playClickSound();
+      saveTasks();
+    }
+
+    function deleteTask(id) {
+      tasks = tasks.filter(t => t.id !== id);
+      saveTasks();
+    }
+
+    function renderTasks() {
+      const list = document.getElementById('tasksList');
+      const search = document.getElementById('taskSearch').value.toLowerCase();
+      const filter = document.getElementById('taskFilter').value;
+
+      let filtered = tasks.filter(t => {
+        const matchesSearch = t.title.toLowerCase().includes(search);
+        if (filter === 'completed') return matchesSearch && t.completed;
+        if (filter === 'pending') return matchesSearch && !t.completed;
+        return matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-12 text-gray-500">
+            <i data-lucide="check-circle" class="w-10 h-10 mx-auto text-gray-600 mb-2 stroke-[1.5]"></i>
+            <p class="text-xs">No tasks found in this view.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      list.innerHTML = filtered.map(t => `
+        <div class="bg-surface-card border border-surface-border p-3.5 rounded-2xl flex items-center justify-between gap-3 group transition-all ${t.completed ? 'opacity-55' : ''}">
+          <div class="flex items-center gap-3 flex-1 min-w-0" onclick="toggleTask(${t.id})">
+            <button class="w-5 h-5 rounded-lg border ${t.completed ? 'bg-brand-500 border-brand-500 text-white' : 'border-gray-500'} flex items-center justify-center transition-colors shrink-0">
+              ${t.completed ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : ''}
+            </button>
+            <div class="truncate">
+              <p class="text-sm font-medium ${t.completed ? 'line-through text-gray-400' : 'text-gray-100'} truncate">${t.title}</p>
+              <div class="flex items-center gap-1.5 mt-1">
+                <span class="text-[10px] px-1.5 py-0.5 rounded-md ${
+                  t.priority === 'High' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
+                  t.priority === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' :
+                  'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                }">${t.priority}</span>
+                <span class="text-[10px] bg-surface-input text-gray-400 px-1.5 py-0.5 rounded-md border border-surface-border">${t.tag}</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="deleteTask(${t.id})" class="text-gray-500 hover:text-rose-400 p-1.5 rounded-lg hover:bg-surface-input transition-colors">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    // FOCUS TIMER & SYNTHESIZED SOUND (Web Audio API)
+    let timerDuration = 25 * 60;
+    let timerTimeLeft = 25 * 60;
+    let timerInterval = null;
+    let isTimerRunning = false;
+    let audioCtx = null;
+    let noiseNode = null;
+    let isAmbientPlaying = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+    }
+
+    function playClickSound() {
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } catch(e) {}
+    }
+
+    function playAlarm() {
+      try {
+        initAudio();
+        [440, 554.37, 659.25, 880].forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.2, audioCtx.currentTime + (idx * 0.12));
+          gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + (idx * 0.12) + 0.4);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(audioCtx.currentTime + (idx * 0.12));
+          osc.stop(audioCtx.currentTime + (idx * 0.12) + 0.4);
+        });
+      } catch(e) {}
+    }
+
+    function toggleAmbientSound() {
+      initAudio();
+      const icon = document.getElementById('iconSound');
+      if (isAmbientPlaying) {
+        if (noiseNode) { noiseNode.stop(); noiseNode.disconnect(); noiseNode = null; }
+        isAmbientPlaying = false;
+        icon.className = 'w-4 h-4 text-gray-300';
+      } else {
+        // Generate continuous pink/ambient focus drone
+        const bufferSize = audioCtx.sampleRate * 2;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          data[i] = (lastOut + (0.02 * white)) / 1.02;
+          lastOut = data[i];
+          data[i] *= 3.5;
+        }
+        noiseNode = audioCtx.createBufferSource();
+        noiseNode.buffer = buffer;
+        noiseNode.loop = true;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 400;
+        const gain = audioCtx.createGain();
+        gain.gain.value = 0.08;
+        noiseNode.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+        noiseNode.start();
+        isAmbientPlaying = true;
+        icon.className = 'w-4 h-4 text-brand-400';
+      }
+    }
+
+    function setTimerMode(mode) {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      document.getElementById('iconTimerPlay').setAttribute('data-lucide', 'play');
+      document.getElementById('textTimerPlay').innerText = 'Start';
+
+      ['pomodoro', 'short', 'deep'].forEach(m => {
+        const btn = document.getElementById(`btn-mode-${m}`);
+        if (m === mode) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-500 text-white transition-all';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-400 hover:text-white transition-all';
+        }
+      });
+
+      if (mode === 'pomodoro') timerDuration = 25 * 60;
+      if (mode === 'short') timerDuration = 5 * 60;
+      if (mode === 'deep') timerDuration = 50 * 60;
+      timerTimeLeft = timerDuration;
+      updateTimerDisplay();
+      lucide.createIcons();
+    }
+
+    function toggleTimer() {
+      initAudio();
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        document.getElementById('iconTimerPlay').setAttribute('data-lucide', 'play');
+        document.getElementById('textTimerPlay').innerText = 'Resume';
+        document.getElementById('timerStatus').innerText = 'Paused';
+      } else {
+        isTimerRunning = true;
+        document.getElementById('iconTimerPlay').setAttribute('data-lucide', 'pause');
+        document.getElementById('textTimerPlay').innerText = 'Pause';
+        document.getElementById('timerStatus').innerText = 'Focusing...';
+
+        timerInterval = setInterval(() => {
+          if (timerTimeLeft > 0) {
+            timerTimeLeft--;
+            totalFocusSeconds++;
+            localStorage.setItem('pf_focus_secs', totalFocusSeconds.toString());
+            updateTimerDisplay();
+          } else {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            playAlarm();
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            document.getElementById('timerStatus').innerText = 'Completed!';
+            document.getElementById('iconTimerPlay').setAttribute('data-lucide', 'play');
+            document.getElementById('textTimerPlay').innerText = 'Start';
+          }
+        }, 1000);
+      }
+      lucide.createIcons();
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      timerTimeLeft = timerDuration;
+      document.getElementById('iconTimerPlay').setAttribute('data-lucide', 'play');
+      document.getElementById('textTimerPlay').innerText = 'Start';
+      document.getElementById('timerStatus').innerText = 'Ready to Sprint';
+      updateTimerDisplay();
+      lucide.createIcons();
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timerTimeLeft / 60);
+      const secs = timerTimeLeft % 60;
+      document.getElementById('timerDisplay').innerText = 
+        `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      
+      const circumference = 2 * Math.PI * 44; // 276.46
+      const offset = circumference - (timerTimeLeft / timerDuration) * circumference;
+      document.getElementById('timerRing').style.strokeDashoffset = offset;
+    }
+
+    // NOTES / SCRATCHPAD
+    function handleNoteInput() {
+      const area = document.getElementById('notesArea');
+      localStorage.setItem('pf_notes', area.value);
+      document.getElementById('noteCharCount').innerText = `${area.value.length} characters`;
+      const indicator = document.getElementById('noteSaveIndicator');
+      indicator.innerText = '● Saved';
+      indicator.className = 'text-emerald-400';
+    }
+
+    function copyNotes() {
+      const area = document.getElementById('notesArea');
+      navigator.clipboard.writeText(area.value);
+      const indicator = document.getElementById('noteSaveIndicator');
+      indicator.innerText = 'Copied to clipboard!';
+      indicator.className = 'text-brand-400';
+      setTimeout(handleNoteInput, 2000);
+    }
+
+    // ANALYTICS
+    function updateAnalytics() {
+      const total = tasks.length;
+      const completed = tasks.filter(t => t.completed).length;
+      const rate = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+      document.getElementById('statCompletion').innerText = `${rate}%`;
+      document.getElementById('statBar').style.width = `${rate}%`;
+      document.getElementById('statTotalTasks').innerText = total;
+      document.getElementById('statCompletedTasks').innerText = completed;
+      document.getElementById('statHighPriority').innerText = tasks.filter(t => !t.completed && t.priority === 'High').length;
+      document.getElementById('statFocusTime').innerText = `${Math.round(totalFocusSeconds / 60)} min`;
+    }
+
+    // DEMO DATA GENERATOR
+    function quickAddSampleData() {
+      tasks = [
+        { id: 1, title: 'Deploy PulseFlow to Vercel production', priority: 'High', tag: 'Dev', completed: true },
+        { id: 2, title: 'Test touch interactions on mobile phone', priority: 'High', tag: 'Dev', completed: false },
+        { id: 3, title: 'Wireframe user onboarding flows', priority: 'Medium', tag: 'Design', completed: false },
+        { id: 4, title: 'Review sprint deliverables with team', priority: 'Low', tag: 'General', completed: false },
+      ];
+      saveTasks();
+      const sampleNote = `# Sprint Kickoff Notes\n- Deploy production release on Vercel\n- Verify offline local storage behavior\n- Run focus sprint sessions (25 min)`;
+      document.getElementById('notesArea').value = sampleNote;
+      handleNoteInput();
+    }
+
+    // INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('headerDate').innerText = new Date().toLocaleDateString('en-US', {
+        weekday: 'short', month: 'short', day: 'numeric'
+      });
+      document.getElementById('notesArea').value = notes;
+      handleNoteInput();
+      renderTasks();
+      updateAnalytics();
+      updateTimerDisplay();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
